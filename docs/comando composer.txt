@@ -1,0 +1,1 @@
+/c/wamp/bin/php/php5.4.12/php.exe /c/wamp/bin/php/php5.4.12/composer.phar install
