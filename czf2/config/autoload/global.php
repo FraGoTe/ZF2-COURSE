@@ -11,6 +11,10 @@
  * file.
  */
 
+
+
 return array(
-    // ...
+//    'STATIC_URL' => 'http://local.czf2.com/static',
+    'STATIC_URL' => 'http://static.czf2.com/',
+    'STATIC_PATH' => 'public/static'
 );
