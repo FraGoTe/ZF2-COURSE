@@ -40,6 +40,18 @@ return array(
                     ),
                 ),
             ),
+            'mantcategoria' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/mis-categorias',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Admin\Controller',
+                        'controller'    => 'Categoria',
+                        'action'        => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'service_manager' => array(
@@ -64,6 +76,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Admin\Controller\Index' => 'Admin\Controller\IndexController',
+            'Admin\Controller\Categoria' => 'Admin\Controller\CategoriaController',
         ),
     ),
     'view_manager' => array(
