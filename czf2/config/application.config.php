@@ -5,6 +5,7 @@ return array(
         'AlumnoFgonzales',
         'Admin',
         'AlumnoEanaya',
+        'AlumnoCsernaque',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
