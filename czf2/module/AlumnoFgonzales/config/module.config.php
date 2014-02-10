@@ -14,7 +14,7 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            'home' => array(
+            'alumno-fgonzales' => array(
                 'type'    => 'Literal',
                 'options' => array(
                     'route'    => '/alumno-fgonzales',
@@ -74,7 +74,7 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'admin/index/index'       => __DIR__ . '/../view/admin/index/index.phtml',
+            'alumno-fgonzales/index/index'       => __DIR__ . '/../view/alumno-fgonzales/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),

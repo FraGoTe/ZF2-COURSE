@@ -52,6 +52,18 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+            'controladorjpomalaza' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/controlador-jpomalaza',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Admin\Controller',
+                        'controller'    => 'Jpomalaza',
+                        'action'        => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'service_manager' => array(
@@ -77,6 +89,7 @@ return array(
         'invokables' => array(
             'Admin\Controller\Index' => 'Admin\Controller\IndexController',
             'Admin\Controller\Categoria' => 'Admin\Controller\CategoriaController',
+            'Admin\Controller\Jpomalaza' => 'Admin\Controller\JpomalazaController',
         ),
     ),
     'view_manager' => array(

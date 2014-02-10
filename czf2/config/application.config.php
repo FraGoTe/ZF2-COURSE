@@ -4,9 +4,10 @@ return array(
     'modules' => array(
         'AlumnoFgonzales',
         'Admin',
-        'AlumnoEanaya',
-        'AlumnoCsernaque',
         'AlumnoEsoto',
+        'AlumnoEanaya',
+        'AlumnoCsernaque',        
+        'AlumnoOgines',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
