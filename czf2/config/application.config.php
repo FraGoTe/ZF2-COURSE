@@ -4,6 +4,7 @@ return array(
     'modules' => array(
         'AlumnoFgonzales',
         'Admin',
+        'TemaDb',
         'AlumnoEsoto',
         'AlumnoEanaya',
         'AlumnoCsernaque',        
