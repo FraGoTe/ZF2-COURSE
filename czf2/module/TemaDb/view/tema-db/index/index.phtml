@@ -1,6 +1,6 @@
 <div class="row">
-
-    <h2>Db</h2>
+    
+    <h2><?=$this->titulo?></h2>
 
     <ul>
         <li><a href="<?=$this->url('tema-db/default',array('controller'=>'index','action'=>'table-gateway'))?>">TableGateway</a></li>
@@ -10,7 +10,8 @@
         <li><a href="<?=$this->url('tema-db/default',array('controller'=>'index','action'=>'select-cols-prototype'))?>">Select cols Prototype</a></li>
         <li><a href="<?=$this->url('tema-db/default',array('controller'=>'index','action'=>'select-cols-array'))?>">Select cols array</a></li>
         <li><a href="<?=$this->url('tema-db/default',array('controller'=>'index','action'=>'select-cols-array-alias'))?>">Select cols array alias</a></li>
-        <li><a href="<?=$this->url('tema-db/default',array('controller'=>'index','action'=>'select-where'))?>">Select Where</a></li>
+        <li><a href="<?=$this->url('tema-db/default',array('controller'=>'index','action'=>'select-where-pk'))?>">Select Where PK</a></li>
+        <li><a href="<?=$this->url('tema-db/default',array('controller'=>'index','action'=>'select-where-lista'))?>">Select Where Lista</a></li>
         <li><a href="<?=$this->url('tema-db/default',array('controller'=>'index','action'=>'insert'))?>">Insert</a></li>
         <li><a href="<?=$this->url('tema-db/default',array('controller'=>'index','action'=>'update'))?>">Update</a></li>
         <li><a href="<?=$this->url('tema-db/default',array('controller'=>'index','action'=>'delete'))?>">Delete</a></li>

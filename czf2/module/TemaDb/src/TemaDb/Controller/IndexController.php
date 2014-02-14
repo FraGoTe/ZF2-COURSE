@@ -22,7 +22,9 @@ class IndexController extends AbstractActionController
     
     public function indexAction()
     {
-        return new ViewModel();
+        $view = new ViewModel();
+        $view->titulo = 'Db';
+        return $view;
     }
     
     public function tableGatewayAction()
@@ -51,7 +53,7 @@ class IndexController extends AbstractActionController
         $sl = $this->getServiceLocator();
         $adapter = $sl->get('dbadapter');
         $tableGateway = new TableGateway('categoria', $adapter);
-        $view->data = $tableGateway->select()->toArray();
+            $view->data = $tableGateway->select()->toArray();
         return $view;
     }
     
@@ -60,8 +62,10 @@ class IndexController extends AbstractActionController
         $view = new ViewModel();
         $sl = $this->getServiceLocator();
         $adapter = $sl->get('dbadapter');
+        
         $rsPrototype = new ResultSet();
         $rsPrototype->setArrayObjectPrototype(new Categoria());
+        
         $tableGateway = new TableGateway('categoria', $adapter, null, $rsPrototype);
         $view->data = $tableGateway->select();
         return $view;
@@ -108,7 +112,7 @@ class IndexController extends AbstractActionController
         return $view;
     }
     
-    public function selectWhereAction()
+    public function selectWherePkAction()
     {
         $view = new ViewModel();
         $sl = $this->getServiceLocator();
@@ -123,6 +127,24 @@ class IndexController extends AbstractActionController
                 ;
         };
         $view->data = $tableGateway->select($spec)->current();
+        return $view;
+    }
+    
+    public function selectWhereListaAction()
+    {
+        $view = new ViewModel();
+        $sl = $this->getServiceLocator();
+        $adapter = $sl->get('dbadapter');
+        $rsPrototype = new ResultSet();
+        $rsPrototype->setArrayObjectPrototype(new Categoria());
+        $tableGateway = new TableGateway('categoria', $adapter, null, $rsPrototype);
+        $flag = 0;
+        $spec = function (Select $select) use ($flag) {
+            $select->columns(array('nombre','activo'))
+                ->where(array('activo' => $flag))
+                ;
+        };
+        $view->data = $tableGateway->select($spec);
         return $view;
     }
     
@@ -147,7 +169,7 @@ class IndexController extends AbstractActionController
         $adapter = $sl->get('dbadapter');
         $tableGateway = new TableGateway('categoria', $adapter);
         $tableGateway->update(array(
-            'nombre'=> 'Cat '.rand(111,999),
+            'nombre'=> 'Cat EDIT '.rand(111,999),
             'creado'=> date('Y-m-d H:i:s'),
             'activo'=> rand(0,1),
         ),array('id'=>  rand(3, 6)));
@@ -160,7 +182,7 @@ class IndexController extends AbstractActionController
         $sl = $this->getServiceLocator();
         $adapter = $sl->get('dbadapter');
         $tableGateway = new TableGateway('categoria', $adapter);
-        $tableGateway->delete(array('id'=> 12));
+        $tableGateway->delete(array('id'=> 5));
         return $view;
     }
     

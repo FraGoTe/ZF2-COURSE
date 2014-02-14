@@ -8,7 +8,14 @@ class Categoria {
     protected $nombre;
     protected $creado;
     protected $activo;
-    
+
+    public function exchangeArray(array $data)
+    {
+        $this->id       = (isset($data['id'])) ? $data['id']: null;
+        $this->nombre   = (isset($data['nombre'])) ? $data['nombre']: null;
+        $this->creado   = (isset($data['creado'])) ? $data['creado']: null;
+        $this->activo   = (isset($data['activo'])) ? $data['activo']: null;
+    }
     
     public function getId() {
         return $this->id;
@@ -42,14 +49,9 @@ class Categoria {
         $this->activo = $activo;
     }
 
-
-    public function exchangeArray(array $data)
-    {
-        $this->id       = (isset($data['id'])) ? $data['id']: null;
-        $this->nombre   = (isset($data['nombre'])) ? $data['nombre']: null;
-        $this->creado   = (isset($data['creado'])) ? $data['creado']: null;
-        $this->activo   = (isset($data['activo'])) ? $data['activo']: null;
+    public function estaActivo(){
+        return $this->activo?'si':'no';
     }
-    
+
     
 }
