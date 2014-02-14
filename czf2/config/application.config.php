@@ -5,12 +5,12 @@ return array(
         'Application',
         'Admin',
         'AlumnoFgonzales',
-        'TemaDb',
         'AlumnoEsoto',
         'AlumnoEanaya',
         'AlumnoCsernaque',        
         'AlumnoOgines',
-        'AlbumJpomalaza'
+        'AlbumJpomalaza',
+        'TemaDb',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

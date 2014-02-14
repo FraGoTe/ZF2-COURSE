@@ -12,20 +12,6 @@
  */
 
 return array(
-     'db' => array(
-         'driver'         => 'Pdo',
-         'dsn'            => 'mysql:dbname=test;host=localhost',
-         'driver_options' => array(
-             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-         ),
-     ),
-     'service_manager' => array(
-         'factories' => array(
-             'Zend\Db\Adapter\Adapter'
-                     => 'Zend\Db\Adapter\AdapterServiceFactory',
-         ),
-     ),
-    
     //    'STATIC_URL' => 'http://local.czf2.com/static',
     'STATIC_URL' => 'http://static.czf2.com/',
     'STATIC_PATH' => 'public/static'    
