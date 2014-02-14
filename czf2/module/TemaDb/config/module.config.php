@@ -98,6 +98,6 @@ return array(
         'username' => 'root',
         'password' => '',
         'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname=drbxczf2_dev;host=127.0.0.1',
+        'dsn' => 'mysql:dbname=czf2_dev;host=127.0.0.1',
     )
 );
