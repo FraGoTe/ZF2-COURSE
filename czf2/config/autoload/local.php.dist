@@ -13,7 +13,7 @@
 
 return array(
     'emaling' => array(
-        'user' => '',
+        'user' => 'root',
         'password' => '',
     )
 );
