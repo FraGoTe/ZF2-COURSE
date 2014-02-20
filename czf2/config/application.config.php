@@ -8,9 +8,9 @@ return array(
         'AlumnoEsoto',
         'AlumnoEanaya',
         'AlumnoCsernaque',        
-        'AlumnoOgines',
-        'TemaDb',
+        'AlumnoOgines',        
         'AlbumJpomalaza',
+        'TemaDb',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
