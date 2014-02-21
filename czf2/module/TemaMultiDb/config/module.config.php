@@ -14,12 +14,12 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            'tema-db' => array(
+            'tema-multi-db' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/tema-db',
+                    'route'    => '/tema-multi-db',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'TemaDb\Controller',
+                        '__NAMESPACE__' => 'TemaMultiDb\Controller',
                         'controller'    => 'Index',
                         'action'        => 'index',
                     ),
@@ -46,12 +46,10 @@ return array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory',
+/***/       'Zend\Db\Adapter\AdapterAbstractServiceFactory',
         ),
         'aliases' => array(
             'translator' => 'MvcTranslator',
-        ),
-        'factories' => array(
-/* => */    'dbadapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
         ),
     ),
     'translator' => array(
@@ -66,7 +64,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'TemaDb\Controller\Index' => 'TemaDb\Controller\IndexController'
+            'TemaMultiDb\Controller\Index' => 'TemaMultiDb\Controller\IndexController'
         ),
     ),
     'view_manager' => array(
@@ -77,7 +75,7 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'tema-db/index/index'          => __DIR__ . '/../view/tema-db/index/index.phtml',
+            'tema-multi-db/index/index'          => __DIR__ . '/../view/tema-multi-db/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
@@ -93,9 +91,20 @@ return array(
         ),
     ),
     'db' => array(
-        'username' => 'root',
-        'password' => '',
-        'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname=drbxczf2_dev;host=127.0.0.1',
+        'adapters' => array(
+            'db1' => array(
+                'username' => 'root',
+                'password' => '2',
+                'driver' => 'Pdo',
+                'dsn' => 'mysql:dbname=drbxczf2_dev;host=127.0.0.1',
+            ),
+            'db2' => array(
+                'username' => 'root',
+                'password' => '',
+                'driver' => 'Pdo',
+                'dsn' => 'mysql:dbname=drbxczf2_dev;host=127.0.0.1',
+            ),
+        ),
     )
 );
+

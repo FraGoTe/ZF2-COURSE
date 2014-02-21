@@ -22,11 +22,15 @@ class IndexController extends AbstractActionController
     
     public function indexAction()
     {
-        $view = new ViewModel();
-        $view->titulo = 'Db';
-        return $view;
+        return new ViewModel();
     }
     
+    /**
+     * Esta es la forma más básica de poder realizar un select * FROM tabla
+     * en ZF2, usando la clase TableGateway. Al llamar al método select() 
+     * devuelve un objeto de la clase ResultSet.
+     * @return \Zend\View\Model\ViewModel
+     */
     public function tableGatewayAction()
     {
         $view = new ViewModel();
@@ -37,6 +41,11 @@ class IndexController extends AbstractActionController
         return $view;
     }
     
+    /**
+     * Este objeto ResultSet es iterable. (como podrán ver en la vista)
+     * Cada iteración por defecto es un objeto de la clase ArrayObject
+     * @return \Zend\View\Model\ViewModel
+     */
     public function tableGatewayResultSetIteradoAction()
     {
         $view = new ViewModel();
@@ -47,31 +56,48 @@ class IndexController extends AbstractActionController
         return $view;
     }
     
+    /**
+     * Si no queremos un ArrayObject, podemos transformarlo a un array
+     * llamando al método toArray()
+     * @return \Zend\View\Model\ViewModel
+     */
     public function tableGatewayResultSetArrayAction()
     {
         $view = new ViewModel();
         $sl = $this->getServiceLocator();
         $adapter = $sl->get('dbadapter');
         $tableGateway = new TableGateway('categoria', $adapter);
-            $view->data = $tableGateway->select()->toArray();
+        $view->data = $tableGateway->select()->toArray();
         return $view;
     }
     
+    /**
+     * A veces nos resulta muy útil que cada iteración del result set sea un
+     * objeto de una entidad de nuestro modelo, para lograr esto podemos usar
+     * un -Prototype-. Este prototipo debe pasar como 4to parámetro del constructor
+     * de la clase TableGateway.
+     * Para construir el prototipo, debemos de crear un objeto de la clase
+     * ResultSet y llamar al método setArrayObjectPrototype pasándole como 
+     * parámetro un objeto de la entidad a la cual queremos mapear los resultados
+     * @return \Zend\View\Model\ViewModel
+     */
     public function tableGatewayResultSetPrototypeAction()
     {
         $view = new ViewModel();
         $sl = $this->getServiceLocator();
         $adapter = $sl->get('dbadapter');
-        
         $rsPrototype = new ResultSet();
         $rsPrototype->setArrayObjectPrototype(new Categoria());
-        
         $tableGateway = new TableGateway('categoria', $adapter, null, $rsPrototype);
         $view->data = $tableGateway->select();
         return $view;
     }
     
-    public function selectColsPrototypeAction()
+    /**
+     * Para hacer un WHERE, podemos pasar un string al método select()
+     * @return \Zend\View\Model\ViewModel
+     */
+    public function tableGatewaySelectStringAction()
     {
         $view = new ViewModel();
         $sl = $this->getServiceLocator();
@@ -79,72 +105,109 @@ class IndexController extends AbstractActionController
         $rsPrototype = new ResultSet();
         $rsPrototype->setArrayObjectPrototype(new Categoria());
         $tableGateway = new TableGateway('categoria', $adapter, null, $rsPrototype);
-        $spec = function (Select $select){
-            $select->columns(array('nombre','activo'));
-        };
-        $view->data = $tableGateway->select($spec);
+        $view->data = $tableGateway->select("nombre LIKE '%2%'");
         return $view;
     }
     
+    /**
+     * Si queremos varias condicionales, podemos pasarle un array al método select()
+     * @return \Zend\View\Model\ViewModel
+     */
+    public function tableGatewaySelectArrayAction()
+    {
+        $view = new ViewModel();
+        $sl = $this->getServiceLocator();
+        $adapter = $sl->get('dbadapter');
+        $rsPrototype = new ResultSet();
+        $rsPrototype->setArrayObjectPrototype(new Categoria());
+        $tableGateway = new TableGateway('categoria', $adapter, null, $rsPrototype);
+        $view->data = $tableGateway->select(array("nombre NOT LIKE '%cat%'",'id<?'=>5));
+        return $view;
+    }
+    
+    /**
+     * Si queremos más flexibilidad podemos pasar un Closure
+     * En este closure llega como parámetro un objeto Select
+     * De este objeto select puedo llamar a varios métodos que me permitirán
+     * modificar el query, entre ellos el where.
+     * @return \Zend\View\Model\ViewModel
+     */
+    public function selectClosureAction()
+    {
+        $view = new ViewModel();
+        $sl = $this->getServiceLocator();
+        $adapter = $sl->get('dbadapter');
+        $rsPrototype = new ResultSet();
+        $rsPrototype->setArrayObjectPrototype(new Categoria());
+        $tableGateway = new TableGateway('categoria', $adapter, null, $rsPrototype);
+        $view->data = $tableGateway->select(function (Select $select){
+            $select->where("nombre NOT LIKE '%cat%'")
+                   ->where(array('id < ?'=>'5'));
+        });
+        return $view;
+    }
+    
+    /**
+     * Tambien puedo modificar las columnas que deseo seleccionar
+     * @return \Zend\View\Model\ViewModel
+     */
     public function selectColsArrayAction()
     {
         $view = new ViewModel();
         $sl = $this->getServiceLocator();
         $adapter = $sl->get('dbadapter');
         $tableGateway = new TableGateway('categoria', $adapter);
-        $spec = function (Select $select){
+        $view->data = $tableGateway->select(function (Select $select){
             $select->columns(array('nombre','activo'));
-        };
-        $view->data = $tableGateway->select($spec)->toArray();
+        })->toArray();
         return $view;
     }
     
+    /**
+     * O usar aliases para las columnas
+     * Cuando se usa un alias, se debe tener cuidado de que es probable que la
+     * columna ya no corresponda con el atributo del prototipo.
+     * En este ejemplo dejo de usar un prototipo por esa razón
+     * @return \Zend\View\Model\ViewModel
+     */
     public function selectColsArrayAliasAction()
     {
         $view = new ViewModel();
         $sl = $this->getServiceLocator();
         $adapter = $sl->get('dbadapter');
         $tableGateway = new TableGateway('categoria', $adapter);
-        $spec = function (Select $select){
+        $view->data = $tableGateway->select(function (Select $select){
             $select->columns(array( 'categoria' => 'nombre', 'valida'=>'activo'));
-        };
-        $view->data = $tableGateway->select($spec)->toArray();
+        })->toArray();
         return $view;
     }
     
-    public function selectWherePkAction()
+    /**
+     * Uso de Join con aliases para evitar ambigüedades
+     * @return \Zend\View\Model\ViewModel
+     */
+    public function joinAction()
     {
         $view = new ViewModel();
         $sl = $this->getServiceLocator();
         $adapter = $sl->get('dbadapter');
-        $rsPrototype = new ResultSet();
-        $rsPrototype->setArrayObjectPrototype(new Categoria());
-        $tableGateway = new TableGateway('categoria', $adapter, null, $rsPrototype);
-        $id = 1;
-        $spec = function (Select $select) use ($id) {
-            $select->columns(array('nombre','activo'))
-                ->where(array('id' => $id))
-                ;
-        };
-        $view->data = $tableGateway->select($spec)->current();
-        return $view;
-    }
-    
-    public function selectWhereListaAction()
-    {
-        $view = new ViewModel();
-        $sl = $this->getServiceLocator();
-        $adapter = $sl->get('dbadapter');
-        $rsPrototype = new ResultSet();
-        $rsPrototype->setArrayObjectPrototype(new Categoria());
-        $tableGateway = new TableGateway('categoria', $adapter, null, $rsPrototype);
-        $flag = 0;
-        $spec = function (Select $select) use ($flag) {
-            $select->columns(array('nombre','activo'))
-                ->where(array('activo' => $flag))
-                ;
-        };
-        $view->data = $tableGateway->select($spec);
+        $tableGateway = new TableGateway('producto', $adapter);
+        $view->data = $tableGateway->select(function (Select $select){
+            $select->columns(array(
+                'producto' => 'nombre',
+                'costo'=>'precio_compra',
+                'precio'=>'precio_venta'
+            ))
+            ->join(
+                'categoria',
+                'categoria.id=producto.categoria_id',
+                array('categoria'=>'nombre')
+            )->join(
+                'proveedor',
+                'proveedor.id=producto.proveedor_id',
+                array('proveedor'=>'nombre')
+            );
+        });
         return $view;
     }
     
@@ -169,7 +232,7 @@ class IndexController extends AbstractActionController
         $adapter = $sl->get('dbadapter');
         $tableGateway = new TableGateway('categoria', $adapter);
         $tableGateway->update(array(
-            'nombre'=> 'Cat EDIT '.rand(111,999),
+            'nombre'=> 'Cat '.rand(111,999),
             'creado'=> date('Y-m-d H:i:s'),
             'activo'=> rand(0,1),
         ),array('id'=>  rand(3, 6)));
@@ -182,9 +245,11 @@ class IndexController extends AbstractActionController
         $sl = $this->getServiceLocator();
         $adapter = $sl->get('dbadapter');
         $tableGateway = new TableGateway('categoria', $adapter);
-        $tableGateway->delete(array('id'=> 5));
+        $tableGateway->delete(array('id'=> 12));
         return $view;
     }
+    
+    
     
     public function slAction()
     {
