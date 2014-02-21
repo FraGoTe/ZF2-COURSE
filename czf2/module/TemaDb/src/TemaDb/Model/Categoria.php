@@ -51,5 +51,9 @@ class Categoria {
         $this->activo   = (isset($data['activo'])) ? $data['activo']: null;
     }
     
+    public function isImportacion(){
+        return rand(0,1);
+    }
+    
     
 }

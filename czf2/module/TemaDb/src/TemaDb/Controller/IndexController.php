@@ -11,8 +11,9 @@ namespace TemaDb\Controller;
 
 use TemaDb\Model\Categoria;
 use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Predicate\PredicateSet;
 use Zend\Db\Sql\Select;
+use Zend\Db\TableGateway\TableGateway;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -116,7 +117,7 @@ class IndexController extends AbstractActionController
     public function tableGatewaySelectArrayAction()
     {
         $view = new ViewModel();
-        $sl = $this->getServiceLocator();
+//        $sl = $this->getServiceLocator();
         $adapter = $sl->get('dbadapter');
         $rsPrototype = new ResultSet();
         $rsPrototype->setArrayObjectPrototype(new Categoria());
@@ -140,9 +141,10 @@ class IndexController extends AbstractActionController
         $rsPrototype = new ResultSet();
         $rsPrototype->setArrayObjectPrototype(new Categoria());
         $tableGateway = new TableGateway('categoria', $adapter, null, $rsPrototype);
-        $view->data = $tableGateway->select(function (Select $select){
-            $select->where("nombre NOT LIKE '%cat%'")
-                   ->where(array('id < ?'=>'5'));
+        $view->data = $tableGateway->select(function (Select $sel){
+            $sel->where("nombre LIKE '%1%'")
+                ->where("nombre LIKE '%2%'", PredicateSet::OP_OR)
+            ;
         });
         return $view;
     }
@@ -199,14 +201,18 @@ class IndexController extends AbstractActionController
                 'precio'=>'precio_venta'
             ))
             ->join(
-                'categoria',
-                'categoria.id=producto.categoria_id',
+                array('c'=>'categoria'),
+                'c.id=producto.categoria_id',
                 array('categoria'=>'nombre')
             )->join(
-                'proveedor',
-                'proveedor.id=producto.proveedor_id',
+                array('pr'=>'proveedor'),
+                'pr.id=producto.proveedor_id',
                 array('proveedor'=>'nombre')
-            );
+            )->limit(1);
+            
+//            var_dump($select->getSqlString());
+//            exit;
+            
         });
         return $view;
     }
@@ -255,8 +261,10 @@ class IndexController extends AbstractActionController
     {
         $view = new ViewModel();
         $sl = $this->getServiceLocator();
-        $adapter = $sl->get('dbadapter');
-        $view->data = $tableGateway->select();
+        $categoria = $sl->get('TemaDb\Model\CategoriaTable');
+        $producto = $sl->get('TemaDb\Model\ProductoTable');
+//        $view->data = $categoria->fetchAll();
+        $view->data = $producto->listarProductosCompleto();
         return $view;
     }
     
