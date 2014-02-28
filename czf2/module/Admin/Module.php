@@ -11,6 +11,7 @@ namespace Admin;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Admin\Model\CategoriaTable;
 
 class Module
 {
@@ -36,4 +37,29 @@ class Module
             ),
         );
     }
+    
+    /**
+     * Carga la configuración de servicios del módulo TemaDb
+     */
+    public function getServiceConfig() {
+        return array(
+            'factories' => array(
+                
+                'Admin\Model\CategoriaTable' => function($sl){
+                    $gateway = $sl->get('CategoriaTableGateway');
+                    $table = new CategoriaTable($gateway);
+                    return $table;
+                },
+                'CategoriaTableGateway' => function($sl) {
+                    $adapter = $sl->get('dbadapter');
+                    $rsPrototype = new ResultSet();
+                    $rsPrototype->setArrayObjectPrototype(new Categoria());
+                    $tableGateway = new TableGateway('categoria', $adapter, null, $rsPrototype);
+                    return $tableGateway;
+                },
+            ),
+        );
+    }    
+    
+    
 }

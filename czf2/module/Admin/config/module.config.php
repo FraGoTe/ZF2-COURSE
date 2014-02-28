@@ -75,6 +75,9 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'factories' => array(
+/* => */    'dbadapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',
@@ -116,4 +119,10 @@ return array(
             ),
         ),
     ),
+    'db' => array(
+        'username' => 'root',
+        'password' => '',
+        'driver' => 'Pdo',
+        'dsn' => 'mysql:dbname=czf2_dev;host=127.0.0.1',
+    )
 );
