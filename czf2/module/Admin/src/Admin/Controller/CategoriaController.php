@@ -19,5 +19,8 @@ class CategoriaController extends AbstractActionController
         return new ViewModel();
     }
     
+    public function listarAction() {
+        return new ViewModel();
+    }
     
 }
