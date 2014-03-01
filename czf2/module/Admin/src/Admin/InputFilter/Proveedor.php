@@ -4,14 +4,15 @@ namespace Admin\InputFilter;
 
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Input;
+use Admin\Validator\Ruc;
 
 class Proveedor extends InputFilter  {
     
-    public function __construct() {
+    public function __construct($max) {
         
         $input = new Input('nombre');
         
-        $v = new \Zend\Validator\StringLength(array('min'=>3,'max'=>20));
+        $v = new \Zend\Validator\StringLength(array('min'=>3,'max'=>$max));
         $v->setMessage('Nombre muy corto! (Al menos %min% car.)',\Zend\Validator\StringLength::TOO_SHORT);
         $v->setMessage('Nombre muy largo! (Como mucho %max% car.)',\Zend\Validator\StringLength::TOO_LONG);
         $input->getValidatorChain()->attach($v);
@@ -33,6 +34,9 @@ class Proveedor extends InputFilter  {
             $dosPrimeros = substr($value, 0, 2);
             return ($dosPrimeros=='10'||$dosPrimeros=='20');
         });
+        $input->getValidatorChain()->attach($v);
+        
+        $v = new Ruc();
         $input->getValidatorChain()->attach($v);
         
         $f = new \Zend\Filter\StringTrim();

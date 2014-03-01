@@ -93,13 +93,15 @@ return array(
         'invokables' => array(
             'Admin\Controller\Index' => 'Admin\Controller\IndexController',
             'Admin\Controller\Categoria' => 'Admin\Controller\CategoriaController',
+            'Admin\Controller\Proveedor' => 'Admin\Controller\ProveedorController',
+            'Admin\Controller\Producto' => 'Admin\Controller\ProductoController',
             'Admin\Controller\Jpomalaza' => 'Admin\Controller\JpomalazaController',
         ),
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
+        'doctype'                  => \Zend\View\Helper\Doctype::HTML5,
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => array(

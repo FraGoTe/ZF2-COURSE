@@ -5,7 +5,7 @@ namespace Admin\Model;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
 
-class CategoriaTable {
+class ProveedorTable {
     
     private $tableGateway;
     
@@ -17,8 +17,8 @@ class CategoriaTable {
         return $this->tableGateway->select();
     }
     
-    public function guardar(\Admin\Model\Categoria $categoria) {
-        $data = array_merge($categoria->toArray(), array(
+    public function guardar(\Admin\Model\Proveedor $proveedor) {
+        $data = array_merge($proveedor->toArray(), array(
             'creado'=> date('Y-m-d H:i:s'),
             'activo'=> '1',
         ));
@@ -34,8 +34,8 @@ class CategoriaTable {
         });
         
         $res = array();
-        foreach ($data as $categoria) {
-            $res[$categoria->getId()] = $categoria->getNombre();
+        foreach ($data as $proveedor) {
+            $res[$proveedor->getId()] = $proveedor->getNombre();
         }
         return $res;
             

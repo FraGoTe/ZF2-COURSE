@@ -18,6 +18,7 @@ class Proveedor extends Form {
         $this->add($element);
        
         $element = new \Zend\Form\Element\Email('email');
+//        $element = new \Zend\Form\Element\Date('email');
         $element->setLabel('E-Mail');
         $this->add($element);
        
