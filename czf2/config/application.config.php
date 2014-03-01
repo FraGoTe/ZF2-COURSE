@@ -12,6 +12,8 @@ return array(
         'AlbumJpomalaza',
         'TemaDb',
         'AlbumJpomalaza',
+        'Portal',
+        'TemaView',
       
     ),
 
