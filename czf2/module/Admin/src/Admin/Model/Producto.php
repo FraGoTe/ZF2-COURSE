@@ -82,4 +82,8 @@ class Producto {
         );
     }
     
+    public function esCaro(){
+        return $this->precioCompra>1000;
+    }
+    
 }

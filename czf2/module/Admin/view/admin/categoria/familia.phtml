@@ -1,0 +1,44 @@
+<div class="row">
+    <h1>Admin -Familia</h1>
+    
+    <?//=$this->form?>
+    
+    <?=$this->form()->openTag($this->form);?>
+    <?=$this->formCollection($this->form);?>
+    <?=$this->form()->closeTag();?>
+    
+</div>
+
+
+<script type="text/html" id="tplSelect">
+    
+<select name="famX" id="famX"><option value="0">-- Escoje --</option>\n\
+</select>    
+
+
+</script>
+
+
+<style>
+    form label,form input,form textarea{display: block}
+</style>
+
+
+<script type="text/javascript">
+
+    $(function(){
+        $('#fam1').change(function(){
+            var idSelected = $(this).val();
+            $.ajax('http://local.czf2.com/admin/categoria/get-familias',{
+                type: 'POST',
+                data: {id: idSelected},
+                dataType: "json"
+            }).done(function(res){
+                $('form#categoria').append($('#tplSelect').html());
+                $('#famX').append('<option id="'+res.id+'">'+res.nombre+'</option>');
+                console.log(res);
+            });
+        });
+    });
+
+</script>

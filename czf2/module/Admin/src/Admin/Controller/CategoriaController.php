@@ -66,6 +66,54 @@ class CategoriaController extends AbstractActionController
     
     
     
+    
+    public function getFamiliasAction() {
+        $view = new ViewModel();
+        $this->layout('blank');
+        
+        $data = array();
+        
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $sl = $this->getServiceLocator();
+            $familiaTable = $sl->get('Admin\Model\FamiliaTable');
+            $data = $request->getPost();
+            $data = $familiaTable->getCboDataHijas($data->id);
+        }
+        
+        $json = json_encode($data);        
+        
+        $view->json = $json;
+        return $view;
+    }
+    
+    
+    
+    
+    public function familiaAction() {
+        $view = new ViewModel();
+        $sl = $this->getServiceLocator();
+        $familiaTable = $sl->get('Admin\Model\FamiliaTable');
+        $form = new \Admin\Form\Familia();
+        $form->setFamilias($familiaTable->getCboData());
+        $inputFilter = new \Admin\InputFilter\Familia();
+        $form->setInputFilter($inputFilter);
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $data = $request->getPost();
+            $form->setData($data);
+            if($form->isValid()){
+                $familia = new \Admin\Model\Familia();
+                $familia->exchangeArray($form->getData());
+                $familiaTable->guardar($familia);
+            }
+        }
+        $view->form = $form;
+        return $view;
+    }
+    
+    
+    
         /**
          *  Esto es un ejemplo de Autocarga
          * Esta clase se mapea con el archivo 

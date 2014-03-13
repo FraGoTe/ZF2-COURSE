@@ -72,7 +72,7 @@ class Module
                         
                 'TemaDb\Model\ProductoTable' => function($sl){
                     $gateway = $sl->get('ProductoTableGateway');
-                    $table = new ProductoTable($gateway);
+                    $table = new ProductoTable($gateway,$sl);
                     return $table;
                 },
                 'ProductoTableGateway' => function($sl) {

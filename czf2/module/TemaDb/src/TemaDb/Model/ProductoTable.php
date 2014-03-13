@@ -8,9 +8,11 @@ use Zend\Db\Sql\Select;
 class ProductoTable {
     
     private $tableGateway;
+    private $sl;
     
-    public function __construct(TableGateway $tableGateway) {
+    public function __construct(TableGateway $tableGateway, $sl) {
         $this->tableGateway = $tableGateway;
+        $this->sl = $sl;
     }
     
     public function fetchAll(){
