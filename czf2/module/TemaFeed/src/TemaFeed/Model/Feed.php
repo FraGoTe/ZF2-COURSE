@@ -47,7 +47,7 @@ class Feed {
          * Render the resulting feed to Atom 1.0 and assign to $out.
          * You can substitute "atom" with "rss" to generate an RSS 2.0 feed.
          */
-        $out = $feed->export('atom');
+        $out = $feed->export('Rss');
         return $out;
     }
 

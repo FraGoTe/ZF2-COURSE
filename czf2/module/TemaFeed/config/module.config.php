@@ -36,6 +36,18 @@ return array(
                     ),
                 ),
             ),
+            'feed-xml' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/rss/feed.xml',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'TemaFeed\Controller',
+                        'controller'    => 'Index',
+                        'action'        => 'writer',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'service_manager' => array(

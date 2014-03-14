@@ -61,6 +61,19 @@ class Module
                     $authService->setAdapter($dbTableAuthAdapter);
                     return $authService;
                 },
+            'acl' => function ($param) {
+                    $acl = new \Zend\Permissions\Acl\Acl();
+                    
+                    $acl->addResource('categoria');
+                    $acl->addRole('manager');
+                    
+                    $acl->allow('manager', 'categoria', 'ver');
+                    $acl->allow('manager', 'categoria', 'crear');
+                    $acl->allow('manager', 'categoria', 'editar');
+                    $acl->deny('manager', 'categoria', 'borrar');
+                    
+                    return $acl;
+                }
             ),
         );
     }    
