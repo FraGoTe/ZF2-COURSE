@@ -14,6 +14,8 @@ return array(
         'AlbumJpomalaza',
         'Portal',
         'TemaView',
+        'TemaAuth',
+        'TemaFeed',
       
     ),
 

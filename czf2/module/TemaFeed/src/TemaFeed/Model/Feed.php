@@ -24,21 +24,24 @@ class Feed {
          * Add one or more entries. Note that entries must
          * be manually added once created.
          */
-        $entry = $feed->createEntry();
-        $entry->setTitle('All Your Base Are Belong To Us');
-        $entry->setLink('http://www.example.com/all-your-base-are-belong-to-us');
-        $entry->addAuthor(array(
-            'name' => 'Paddy',
-            'email' => 'paddy@example.com',
-            'uri' => 'http://www.example.com',
-        ));
-        $entry->setDateModified(time());
-        $entry->setDateCreated(time());
-        $entry->setDescription('Exposing the difficultly of porting games to English.');
-        $entry->setContent(
-                'I am not writing the article. The example is long enough as is ;).'
-        );
-        $feed->addEntry($entry);
+        foreach (range(1,10) as $v) {
+            $item = rand(0,999).'/'.$v;
+            $entry = $feed->createEntry();
+            $entry->setTitle('All '.$item.' Your Base  Are Belong To Us');
+            $entry->setLink('http://www.example.com/all-your-base-are-belong-to-us');
+            $entry->addAuthor(array(
+                'name' => 'Paddy',
+                'email' => 'paddy@example.com',
+                'uri' => 'http://www.example.com',
+            ));
+            $entry->setDateModified(time());
+            $entry->setDateCreated(time());
+            $entry->setDescription('Exposing '.$item.' the difficultly of porting games to English.');
+            $entry->setContent(
+                    'I am '.$item.' not writing the article. The example is long enough as is ;).'
+            );
+            $feed->addEntry($entry);
+        }
 
         /**
          * Render the resulting feed to Atom 1.0 and assign to $out.
