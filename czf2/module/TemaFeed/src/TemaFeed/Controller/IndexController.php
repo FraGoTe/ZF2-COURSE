@@ -40,4 +40,18 @@ class IndexController extends AbstractActionController
         
     }
     
+    public function exposeFeedAction() {
+        $view = new ViewModel();
+        $this->layout('tema-feed/blank');
+        $feedWriter = new \TemaFeed\Model\Feed();
+        $view->xml = $feedWriter->getFeedWriterExercise();
+        return $view;
+    }
+    
+    public function consumeFeedAction() {
+        $view = new ViewModel();
+        $feedWriter = new \TemaFeed\Model\Feed();
+        $view->data = $feedWriter->getFeedReaderExercise();
+        return $view;
+    }
 }
