@@ -16,6 +16,9 @@ return array(
         'TemaView',
         'TemaAuth',
         'TemaFeed',
+        'TemaSession',
+        'TemaRouter',
+        'TemaCache',
       
     ),
 

@@ -7,13 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace TemaAuth;
+namespace TemaAcl;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-
-use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
-use Zend\Authentication\AuthenticationService;
 
 class Module
 {
@@ -43,24 +40,19 @@ class Module
     public function getServiceConfig() {
         return array(
             'factories' => array(
-                'AuthService' => function($sm) {
-                    $dbAdapter = $sm->get('dbadapter');
-                    $dbTableAuthAdapter = new DbTableAuthAdapter(
-                        $dbAdapter, 'usuario', 'username',
-                        'password', 'MD5(?)'
-                    );
+                'acl' => function ($param) {
+                    $acl = new \Zend\Permissions\Acl\Acl();
                     
-                    /* CREATE TABLE IF NOT EXISTS `usuario` (
-                          `id` int(11) NOT NULL AUTO_INCREMENT,
-                          `username` varchar(200) NOT NULL,
-                          `password` varchar(100) NOT NULL,
-                          PRIMARY KEY (`id`)
-                        ) ENGINE=InnoDB DEFAULT CHARSET=utf8; */
+                    $acl->addResource('categoria');
+                    $acl->addRole('manager');
                     
-                    $authService = new AuthenticationService();
-                    $authService->setAdapter($dbTableAuthAdapter);
-                    return $authService;
-                },
+                    $acl->allow('manager', 'categoria', 'ver');
+                    $acl->allow('manager', 'categoria', 'crear');
+                    $acl->allow('manager', 'categoria', 'editar');
+                    $acl->deny('manager', 'categoria', 'borrar');
+                    
+                    return $acl;
+                }
             ),
         );
     }    

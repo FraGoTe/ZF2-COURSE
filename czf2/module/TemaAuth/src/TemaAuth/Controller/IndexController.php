@@ -27,16 +27,6 @@ class IndexController extends AbstractActionController
         $sl = $this->getServiceLocator();
         $auth = $sl->get('AuthService');
         
-        $acl = $sl->get('acl');
-//        $acl = new \Zend\Permissions\Acl\Acl();
-        var_dump(array(
-            'ver' => $acl->isAllowed('manager', 'categoria', 'ver'),
-            'crear' => $acl->isAllowed('manager', 'categoria', 'crear'),
-            'editar' => $acl->isAllowed('manager', 'categoria', 'editar'),
-            'borrar' => $acl->isAllowed('manager', 'categoria', 'borrar'),
-        ));
-        
-        
         // si es que no estoy logged in, entonces redirect al login form
         if(!$auth->hasIdentity()){
             return $this->redirect()->toRoute(
