@@ -14,12 +14,12 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            'admin' => array(
+            'alumno-wilson' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/admin',
+                    'route'    => '/alumno-wilson',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Admin\Controller',
+                        '__NAMESPACE__' => 'AlumnoWilson\Controller',
                         'controller'    => 'Index',
                         'action'        => 'index',
                     ),
@@ -63,7 +63,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Admin\Controller\Index' => 'Admin\Controller\IndexController',
+            'AlumnoWilson\Controller\Index' => 'AlumnoWilson\Controller\IndexController',
         ),
     ),
     'view_manager' => array(
@@ -74,7 +74,7 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'admin/index/index'       => __DIR__ . '/../view/admin/index/index.phtml',
+            'alumno-wilson/index/index'       => __DIR__ . '/../view/alumno-wilson/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),

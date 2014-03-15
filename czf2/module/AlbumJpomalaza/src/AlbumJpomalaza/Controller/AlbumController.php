@@ -127,4 +127,15 @@
          }
          return $this->albumTable;
      }
+     
+     public function writerAction(){
+        
+        $view = new ViewModel();
+        $this->layout('album-jpomalaza/blank');
+        $feedWriter = new \AlbumJpomalaza\Model\Feed();
+        $view->xml = $feedWriter->getFeedWriterExample();
+        return $view;
+        
+    }
+     
  }
