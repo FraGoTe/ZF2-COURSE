@@ -34,8 +34,12 @@ return array(
      ),
     
      'view_manager' => array(
+         'template_map' => array(
+            'album-jpomalaza/layout'  => __DIR__ . '/../view/album-jpomalaza/layout/layout.phtml',
+            'album-jpomalaza/blank'   => __DIR__ . '/../view/album-jpomalaza/layout/blank.phtml',
+         ),
          'template_path_stack' => array(
-             'album-jpomalaza' => __DIR__ . '/../view',
+             'album-jpomalaza'        => __DIR__ . '/../view',
          ),
      ),
     
