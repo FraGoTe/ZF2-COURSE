@@ -9,5 +9,34 @@
             <a href="<?=$this->url('mantcategoria')?>">Categoría link 2</a>
         </li>
     </ul>
+
+    
+    <h1>Menu</h1>
+    
+    
+    
+    <ul>
+        <? if($acl->puedo('ver','sysconfig')):?>
+            <li><a href="#">System Config</a></li>
+        <? endif; ?>
+        <? if($acl->puedo('agregar','bus')):?>
+            <li><a href="#">Agregar Bus</a></li>
+        <? endif; ?>
+        <? if($acl->puedo('agregar','chofer')):?>
+            <li><a href="#">Agregar Chofer</a></li>
+        <? endif; ?>
+        <? if($acl->puedo('postergar','pasaje')):?>
+            <li><a href="#">Posetergar Pasaje</a></li>
+        <? endif; ?>
+        <? if($acl->puedo('vender','pasaje')):?>
+            <li><a href="#">Vender Pasaje</a></li>
+        <? endif; ?>
+        <? if($acl->puedo('ver-reporte-semanal','venta')):?>
+            <li><a href="#">Ver Reporte Ventas Semanal</a></li>
+        <? endif; ?>
+        <? if($acl->puedo('ver-reporte-anual','venta')):?>
+            <li><a href="#">Ver Reporte Ventas Anual</a></li>
+        <? endif; ?>
+    </ul>
     
 </div>

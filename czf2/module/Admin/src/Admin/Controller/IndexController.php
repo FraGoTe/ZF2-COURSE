@@ -16,7 +16,10 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+        $view = new ViewModel();
+        $sl = $this->getServiceLocator();
+        $view->acl = $sl->get('acl');
+        return $view;
     }
     
     

@@ -36,14 +36,5 @@ class Module
             ),
         );
     }
-    
-    public function getServiceConfig() {
-        return array(
-            'factories' => array(
-                'acl' => function ($sl) {
-                    return ;
-                }
-            ),
-        );
-    }    
+  
 }

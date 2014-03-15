@@ -155,6 +155,32 @@ class Module
                     return $logger;
                 },
                         
+                'acl' => function($sl){
+                    return new \Admin\Acl\Acl($sl);
+                },
+                'Zend\Permissions\Acl\Acl' => function () {
+                    $acl = new \Zend\Permissions\Acl\Acl();
+                    
+                    $acl->addResource('sysconfig');
+                    $acl->addResource('bus');
+                    $acl->addResource('chofer');
+                    $acl->addResource('pasaje');
+                    $acl->addResource('venta');
+                    $acl->addRole('admin');
+                    $acl->addRole('agencia');
+                    $acl->addRole('vendedor');
+                    
+                    $acl->allow('admin');
+                    $acl->allow('agencia', 'sysconfig');
+                    $acl->deny('agencia', 'sysconfig','borrar');
+                    $acl->allow('agencia', 'bus','agregar');
+                    $acl->allow('agencia', 'chofer','agregar');
+                    $acl->allow('agencia', 'pasaje','postergar');
+                    $acl->allow('vendedor', 'venta', 'crear');
+                    
+                    return $acl;
+                }
+                        
             ),
         );
     }    

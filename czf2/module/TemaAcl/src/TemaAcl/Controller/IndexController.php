@@ -17,10 +17,12 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $view = new ViewModel();
-        $sl = $this->getServiceLocator();
-        $auth = $sl->get('AuthService');
         
-        $acl = $sl->get('acl');
+        $sl = $this->getServiceLocator();
+        $acl = $sl->get('tema-acl/acl');
+        $acl->isAllowed('manager', 'categoria', 'ver');
+
+        
         var_dump(array(
             'ver' => $acl->isAllowed('manager', 'categoria', 'ver'),
             'crear' => $acl->isAllowed('manager', 'categoria', 'crear'),

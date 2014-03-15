@@ -40,7 +40,7 @@ class Module
     public function getServiceConfig() {
         return array(
             'factories' => array(
-                'acl' => function ($param) {
+                'tema-acl/acl' => function ($param) {
                     $acl = new \Zend\Permissions\Acl\Acl();
                     
                     $acl->addResource('categoria');
