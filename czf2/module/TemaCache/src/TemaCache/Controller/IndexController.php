@@ -17,22 +17,16 @@ class IndexController extends AbstractActionController {
 
     public function indexAction() {
         $view = new ViewModel();
-        
         $cache = $this->getServiceLocator()->get('cache');        
-//        $cache = new \Zend\Cache\Storage\StorageInterface();
         $key = 'top10';
-        
-        
         if($cache->hasItem($key)){
             $data = $cache->getItem($key);
         }else{
-            $data = rand(0,99).'';
-//            $data = new \stdClass();
-//            $data->sdsd = rand(0,99).'';
+//            $data = rand(0,99).'';
+            $data = new \stdClass;
+            $data->v = rand(0,99).'';
             $cache->setItem($key, $data);
-            $cache->touchItem($key,3);
         }
-        
         var_dump($data);
         return $view;
     }

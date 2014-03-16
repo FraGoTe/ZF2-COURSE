@@ -23,6 +23,27 @@ class IndexController extends AbstractActionController {
     public function destinoAction() {
         $view = new ViewModel();
         $view->params = $this->params()->fromRoute();
+        var_dump($_GET);
+        return $view;
+    }
+
+    public function bridgeAction() {
+        
+        $view = new ViewModel();
+        $this->layout('admin/blank');
+        
+//        header('Content-type: text/javascript');
+//        header('Content-Description: File Transfer');
+//        header('Content-Disposition: attachment; filename="' . $filename . '"');
+
+        $response = $this->getResponse();
+        $headers = $response->getHeaders();
+        $headers->addHeaders(array(
+                'Content-type: text/javascript',
+                'Content-Description: File Transfer',
+                'Content-Disposition: attachment; filename="file1.js"',
+            ));
+        
         return $view;
     }
 

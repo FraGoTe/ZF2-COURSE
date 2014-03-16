@@ -16,9 +16,11 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController {
 
     public function indexAction() {
+//        $_SESSION['__ZF']['tienda']['carrito'] = array();
         $view = new ViewModel();
         $sess = new \Zend\Session\Container('tienda');
         $view->carrito = $sess->carrito;
+        var_dump($_SESSION);
         return $view;
     }
 
@@ -48,6 +50,7 @@ class IndexController extends AbstractActionController {
     public function emptyCartSecsAction() {
         $sess = new \Zend\Session\Container('tienda');
         $sess->setExpirationSeconds(5,'carrito');
+        
         return $this->redirect()->toRoute(
                 'tema-session/default',
                 array('controller' => 'index', 'action' => 'index')

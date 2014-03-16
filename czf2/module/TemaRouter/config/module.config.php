@@ -58,12 +58,24 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+            'bridge.js' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/static/bridge.js',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'TemaRouter\Controller',
+                        'controller'    => 'Index',
+                        'action'        => 'bridge',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'destino-params' => array(
                 'type'    => 'Segment',
                 'options' => array(
                     'route'    => '/destino-acepta-parametros/ciudad/[:id]',
                     'constraints' => array(
-                        'id' => '[0-9]*',
+//                        'id' => '[0-9]*',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'TemaRouter\Controller',
@@ -126,6 +138,7 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'admin/blank'           => __DIR__ . '/../view/layout/blank.phtml',
             'tema-router/index/index' => __DIR__ . '/../view/tema-router/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',

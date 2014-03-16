@@ -25,10 +25,10 @@
         <? if($acl->puedo('agregar','chofer')):?>
             <li><a href="#">Agregar Chofer</a></li>
         <? endif; ?>
-        <? if($acl->puedo('postergar','pasaje')):?>
+        <? if($acl->puedo('postergar','venta')):?>
             <li><a href="#">Posetergar Pasaje</a></li>
         <? endif; ?>
-        <? if($acl->puedo('vender','pasaje')):?>
+        <? if($acl->puedo('crear','venta')):?>
             <li><a href="#">Vender Pasaje</a></li>
         <? endif; ?>
         <? if($acl->puedo('ver-reporte-semanal','venta')):?>

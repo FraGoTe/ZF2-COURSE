@@ -94,11 +94,11 @@ return array(
             'name' => 'filesystem',
             'options' => array(
                 'cache_dir' => 'data/cache/',
-                'ttl' => 10
+                'ttl' => 7
             ),
         ),
-//        'plugins'=>array(
-//            'serializer'
-//        ),
+        'plugins'=>array(
+            'serializer'
+        ),
     ),
 );
