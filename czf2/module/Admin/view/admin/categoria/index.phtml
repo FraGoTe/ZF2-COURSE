@@ -1,3 +1,26 @@
 <div class="row">
     <h1>Admin - Categoría</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Categoría</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <? foreach ($this->rows as $row): ?>
+            <tr>
+                <? $id = $row->getId() ?>
+                <td><?=$row->getNombre()?></td>
+                <td>
+                    <? $base = array('controller'=>'categoria') ?>
+                    <? $url = $this->url('admin/param-id',  array_merge($base,array('id'=>$id,'action'=>'editar'))) ?>
+                    <a href="<?=$url?>" class="btn btn-primary btn-xs">editar</a>
+                </td>
+            </tr>
+            <? endforeach; ?>
+        </tbody>
+    </table>
+    
 </div>

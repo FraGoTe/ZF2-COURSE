@@ -3,6 +3,7 @@
 namespace Admin\Model;
 
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Select;
 
 class ProductoTable {
     
@@ -34,4 +35,17 @@ class ProductoTable {
         
     }
     
+    
+     public function getCboData(){
+        $data = $this->tableGateway->select(function (Select $select){
+            $select->columns(array('id','nombre'));
+            
+        });
+        $res = array();
+        foreach ($data as $categoria) {
+            $res[$categoria->getId()] = $categoria->getNombre();
+        }
+        return $res;
+    }
+   
 }

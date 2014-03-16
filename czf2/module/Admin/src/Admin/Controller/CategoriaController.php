@@ -18,6 +18,9 @@ class CategoriaController extends AbstractActionController
     public function indexAction()
     {
         $view = new ViewModel();
+        $sl = $this->getServiceLocator();
+        $categoriaTable = $sl->get('Admin\Model\CategoriaTable');
+        $view->rows = $categoriaTable->fetchAll();
         return $view;
     }
     

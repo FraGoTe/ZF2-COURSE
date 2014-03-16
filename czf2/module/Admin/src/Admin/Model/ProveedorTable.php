@@ -17,12 +17,31 @@ class ProveedorTable {
         return $this->tableGateway->select();
     }
     
+    public function fetchById($id){
+        $row = $this->tableGateway->select(function (Select $select) use($id) {
+            $select->where(array('id=?'=>$id));
+        });
+        return $row->current();
+    }
+    
     public function guardar(\Admin\Model\Proveedor $proveedor) {
         $data = array_merge($proveedor->toArray(), array(
             'creado'=> date('Y-m-d H:i:s'),
             'activo'=> '1',
         ));
         $this->tableGateway->insert($data);
+    }
+    
+    public function editar(\Admin\Model\Proveedor $proveedor, $id) {
+        $data = $proveedor->toArray();
+        unset($data['id']);
+        unset($data['activo']);
+        unset($data['creado']);
+        $this->tableGateway->update($data,array('id=?'=>$id));
+    }
+    
+    public function borrar($id) {
+        return $this->tableGateway->delete(array('id=?'=>$id));
     }
     
     public function getCboData(){

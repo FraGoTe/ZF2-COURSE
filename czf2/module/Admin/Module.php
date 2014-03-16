@@ -15,9 +15,13 @@ use Admin\Model\Categoria;
 use Admin\Model\Proveedor;
 use Admin\Model\Producto;
 use Admin\Model\Familia;
+use Admin\Model\Venta;
+use Admin\Model\VentaDetalle;
 use Admin\Model\CategoriaTable;
 use Admin\Model\ProveedorTable;
 use Admin\Model\ProductoTable;
+use Admin\Model\VentaTable;
+use Admin\Model\VentaDetalleTable;
 use Admin\Model\FamiliaTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
@@ -35,10 +39,16 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+//        $eventManager->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH_ERROR,array ($this, 'dberr'));
+        
     }
+    
+//    public function dberr(\Zend\Mvc\MvcEvent $event) {
+//        echo "Got exception: " . (string)$event->getParam('exception');
+//    }
 
     public function getConfig()
     {
@@ -116,6 +126,39 @@ class Module
                     $tableGateway = new TableGateway('familia', $adapter, null, $rsPrototype);
                     return $tableGateway;
                 },
+                        
+                        
+                        
+                'Admin\Model\VentaTable' => function($sl){
+                    $gateway = $sl->get('VentaTableGateway');
+                    $table = new VentaTable($gateway,$sl);
+                    return $table;
+                },
+                'VentaTableGateway' => function($sl) {
+                    $adapter = $sl->get('dbadapter');
+                    $rsPrototype = new ResultSet();
+                    $rsPrototype->setArrayObjectPrototype(new Venta());
+                    $tableGateway = new TableGateway('venta', $adapter, null, $rsPrototype);
+                    return $tableGateway;
+                },
+                        
+                        
+                        
+                'Admin\Model\VentaDetalleTable' => function($sl){
+                    $gateway = $sl->get('VentaDetalleTableGateway');
+                    $table = new VentaDetalleTable($gateway);
+                    return $table;
+                },
+                'VentaDetalleTableGateway' => function($sl) {
+                    $adapter = $sl->get('dbadapter');
+                    $rsPrototype = new ResultSet();
+                    $rsPrototype->setArrayObjectPrototype(new VentaDetalle());
+                    $tableGateway = new TableGateway('venta_detalle', $adapter, null, $rsPrototype);
+                    return $tableGateway;
+                },
+                        
+                        
+                        
                         
                 'Logger' => function ($sl) {
                     

@@ -38,6 +38,19 @@ return array(
                                 'action'     => 'index',
                             ),
                         ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'id' => array(
+                                'type'    => 'Segment',
+                                'options' => array(
+                                    'route'    => '/:id',
+                                    'constraints' => array(
+                                        'id'         => '[0-9]*',
+                                    ),
+                                    'defaults' => array(),
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -96,6 +109,7 @@ return array(
             'Admin\Controller\Proveedor' => 'Admin\Controller\ProveedorController',
             'Admin\Controller\Producto' => 'Admin\Controller\ProductoController',
             'Admin\Controller\Jpomalaza' => 'Admin\Controller\JpomalazaController',
+            'Admin\Controller\Venta' => 'Admin\Controller\VentaController',
         ),
     ),
     'view_manager' => array(
@@ -106,6 +120,7 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/report'           => __DIR__ . '/../view/layout/report.phtml',
             'blank'                   => __DIR__ . '/../view/layout/blank.phtml',
             'admin/index/index'       => __DIR__ . '/../view/admin/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',

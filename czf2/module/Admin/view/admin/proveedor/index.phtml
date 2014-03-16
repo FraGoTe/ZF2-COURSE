@@ -1,3 +1,66 @@
 <div class="row">
     <h1>Admin - Proveedores</h1>
+    
+    <? $url = $this->url('admin/default',array('controller'=>'proveedor','action'=>'nuevo')); ?>
+    <a class="btn btn-primary" href="<?=$url?>">Nuevo Proveedor</a>
+    
+    <? $url = $this->url('admin/default',array('controller'=>'proveedor','action'=>'reporte')); ?>
+    <a class="btn btn-warning" target="_blank" href="<?=$url?>">Reporte</a>
+    
+    <table id="tblProveedores" class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Ruc</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <? foreach ($this->rows as $row): ?>
+                <? $id = $row->getId()?>
+            <tr data-id="<?=$id?>">
+                <td><?=$row->getNombre()?></td>
+                <td><?=$row->getRuc()?></td>
+                <td><?=$row->getEmail()?></td>
+                <td>
+                    <? $ruta = 'admin/default/id'; ?>
+                    <? $base = array('controller'=>'proveedor','id'=>$id); ?>
+                    
+                    <? $url = $this->url($ruta,array('action'=>'ver')+$base ); ?>
+                    <a class="btn btn-primary btn-xs" href="<?=$url?>">Ver</a>
+                    
+                    <? $url = $this->url($ruta,array('action'=>'editar')+$base ); ?>
+                    <a class="btn btn-primary btn-xs" href="<?=$url?>">Editar</a>
+                    
+                    <? $url = $this->url($ruta,array('action'=>'borrar')+$base ); ?>
+                    <a class="btn btn-danger btn-xs" href="<?=$url?>">Borrar</a>
+                    
+                    <? $url = $this->url($ruta,array('action'=>'activar')+$base ); ?>
+                    <a class="btn btn-success btn-xs" href="<?=$url?>">Activar</a>
+                    
+                    <? $url = $this->url($ruta,array('action'=>'desactivar')+$base ); ?>
+                    <a class="btn btn-warning btn-xs" href="<?=$url?>">Desactivar</a>
+                </td>
+            </tr>
+            <? endforeach; ?>
+        </tbody>
+    </table>
+    
+    <? $url = $this->url('admin/default/id',array('controller'=>'proveedor','action'=>'editar','id'=>0)); ?>
+    <a id="btnEditar" class="btn btn-primary btn-xs" href="<?=$url?>">Editar</a>
+    
 </div>
+
+<script>
+    $(function(){
+        var idSel;
+        $('#tblProveedores tbody tr').click(function(){
+            idSel = $(this).data('id');
+            href = $('#btnEditar').attr('href');
+            url = href.replace('0',idSel);
+            $('#btnEditar').attr('href',url);
+        });
+        
+    });
+</script>
