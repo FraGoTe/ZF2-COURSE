@@ -20,6 +20,7 @@ return array(
         'TemaSession',
         'TemaRouter',
         'TemaCache',
+        'TemaRest',
       
     ),
 
