@@ -10,14 +10,42 @@
 
 namespace TemaRest\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Zend\Mvc\Controller\AbstractRestfulController;
+ 
+class IndexController extends AbstractRestfulController {
 
-class IndexController extends AbstractActionController {
-
-    public function indexAction() {
-        $view = new ViewModel();
-        return $view;
+    public function getList() {
+        $data = array();
+        foreach(range(0,rand(3,8)) as $i){
+            $data[] = array(
+                'id' => $i,
+                'name' => 'item '.$i,
+            );
+        }
+        return array('data'=>$data);
     }
 
+    public function get($id) {
+        
+    }
+    
+    public function create($data) {
+        
+    }
+    
+    public function update($id, $data) {
+        
+    }
+    
+
+    public function delete($id) {
+        
+    }
+    
+    
+    
+    
+    
+    
+    
 }

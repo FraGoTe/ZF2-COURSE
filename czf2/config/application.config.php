@@ -21,6 +21,7 @@ return array(
         'TemaRouter',
         'TemaCache',
         'TemaRest',
+        'AlbumRest',
       
     ),
 
