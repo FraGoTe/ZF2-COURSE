@@ -1,45 +1,65 @@
 <?php
 
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
-
 namespace TemaRest\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
- 
+use Zend\View\Model\JsonModel;
+
 class IndexController extends AbstractRestfulController {
 
+    /**
+     * @tutorial curl http://local.czf2.com/tema-rest
+     * @return \Zend\View\Model\JsonModel
+     */
     public function getList() {
-        $data = array();
-        foreach(range(0,rand(3,8)) as $i){
-            $data[] = array(
-                'id' => $i,
-                'name' => 'item '.$i,
-            );
-        }
-        return array('data'=>$data);
+        return new JsonModel(array(
+            'method' => __FUNCTION__,
+            'params' => func_get_args(),
+        ));
     }
 
+    /**
+     * @tutorial curl http://local.czf2.com/tema-rest/8
+     * @return \Zend\View\Model\JsonModel
+     */
     public function get($id) {
-        
+        return new JsonModel(array(
+            'method' => __FUNCTION__,
+            'params' => func_get_args(),
+        ));
     }
     
+    /**
+     * @tutorial curl -X POST -d "a=1&b=2" http://local.czf2.com/tema-rest
+     * @return \Zend\View\Model\JsonModel
+     */
     public function create($data) {
-        
+        return new JsonModel(array(
+            'method' => __FUNCTION__,
+            'params' => func_get_args(),
+        ));
     }
     
+    /**
+     * @tutorial curl -X PUT -d "a=1&b=2" http://local.czf2.com/tema-rest/8
+     * @return \Zend\View\Model\JsonModel
+     */
     public function update($id, $data) {
-        
+        return new JsonModel(array(
+            'method' => __FUNCTION__,
+            'params' => func_get_args(),
+        ));
     }
     
-
+    /**
+     * @tutorial curl -X DELETE http://local.czf2.com/tema-rest/8
+     * @return \Zend\View\Model\JsonModel
+     */
     public function delete($id) {
-        
+        return new JsonModel(array(
+            'method' => __FUNCTION__,
+            'params' => func_get_args(),
+        ));
     }
     
     

@@ -21,6 +21,9 @@ return array(
         'TemaRouter',
         'TemaCache',
         'TemaRest',
+        'TemaHttpClient',
+        'TemaPaginator',
+        'TemaConsole',
         'AlbumRest',
       
     ),

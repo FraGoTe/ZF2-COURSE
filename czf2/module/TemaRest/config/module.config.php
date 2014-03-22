@@ -13,7 +13,7 @@ return array(
             'tema-rest' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/tema-rest[:id]',
+                    'route'    => '/tema-rest[/:id]',
                     'constraints' => array(
                         'id'        => '[0-9]+',
                     ),
