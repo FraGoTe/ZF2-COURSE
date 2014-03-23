@@ -36,7 +36,12 @@ class IndexController extends AbstractActionController {
 
         $view->data = null;
         if ($response->isSuccess()) {
+            // JSON
             $view->data = json_decode($response->getContent());
+            
+            // XML
+//            $sxe = new \SimpleXMLElement($response->getContent());
+//            $view->data = $sxe->xpath('//buses[0]/pisos');
         }
         
         return $view;

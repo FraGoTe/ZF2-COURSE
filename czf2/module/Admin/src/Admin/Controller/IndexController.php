@@ -21,6 +21,25 @@ class IndexController extends AbstractActionController
         $view->acl = $sl->get('acl');
         return $view;
     }
-    
+
+    public function httpClientAction() {
+        $view = new ViewModel();
+        $client = new \Zend\Http\Client();
+        $request = new \Zend\Http\Request();
+        
+        $request->setUri('http://local.czf2.com/tema-rest/5');
+        $request->setMethod(\Zend\Http\Request::METHOD_DELETE);
+//        $request->getPost()->set('nombre', 'Zend');
+//        $client->setEncType(\Zend\Http\Client::ENC_URLENCODED);
+        
+        $response = $client->dispatch($request);
+        
+        
+        if($response->isSuccess()){
+            var_dump($response->getContent());
+        }
+                
+        return $view;
+    }
     
 }

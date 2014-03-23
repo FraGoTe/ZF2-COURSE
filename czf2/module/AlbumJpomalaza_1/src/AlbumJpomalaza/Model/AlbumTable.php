@@ -8,12 +8,7 @@
 
 namespace AlbumJpomalaza\Model;
 
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
-use Zend\Db\Sql\Select;
-use Zend\Paginator\Adapter\DbSelect;
-use Zend\Paginator\Adapter\ArrayAdapter;
-use Zend\Paginator\Paginator;
+ use Zend\Db\TableGateway\TableGateway;
 
  class AlbumTable
  {
@@ -24,21 +19,8 @@ use Zend\Paginator\Paginator;
          $this->tableGateway = $tableGateway;
      }
 
-     public function fetchAll($usarPaginador = false)
+     public function fetchAll()
      {
-         
-         if($usarPaginador){
-            $select = new Select('t_album');
-//            $select->where("artist LIKE '%e'");
-            $resultSetPrototype = new ResultSet();
-            $resultSetPrototype->setArrayObjectPrototype(new Album());
-            $paginatorAdapter = new DbSelect(
-                    $select, $this->tableGateway->getAdapter(), $resultSetPrototype
-            );
-            $paginator = new Paginator($paginatorAdapter);
-            return $paginator;
-         }
-         
          $resultSet = $this->tableGateway->select();
          return $resultSet;
      }

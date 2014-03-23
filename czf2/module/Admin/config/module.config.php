@@ -110,6 +110,7 @@ return array(
             'Admin\Controller\Producto' => 'Admin\Controller\ProductoController',
             'Admin\Controller\Jpomalaza' => 'Admin\Controller\JpomalazaController',
             'Admin\Controller\Venta' => 'Admin\Controller\VentaController',
+            'Admin\Controller\Cli' => 'Admin\Controller\CliController',
         ),
     ),
     'view_manager' => array(
@@ -134,6 +135,16 @@ return array(
     'console' => array(
         'router' => array(
             'routes' => array(
+                'limpiar-cache' => array(
+                    'options' => array (
+                        'route' => 'lcache',
+                        'defaults' => array (
+                            'controller' => 'Admin\Controller\Cli',
+                            'action'     => 'limpiarCache',
+                        ),
+                    ),
+                    
+                ),
             ),
         ),
     ),

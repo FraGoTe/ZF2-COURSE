@@ -28,14 +28,3 @@
  </tr>
  <?php endforeach; ?>
  </table>
- 
- <h3>Páginas</h3>
-
- <?=$this->paginationControl(
-        $albums, // objeto paginador
-        'sliding', // estilo de paginado
-         array('album-jpomalaza/album/_paginador.phtml','album-jpomalaza'),
-         array('route' => 'albumjpomalaza')
- )?>
-         
-         

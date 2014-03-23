@@ -27,6 +27,7 @@ class AlbumTable {
             $select = new Select('t_album');
             $resultSetPrototype = new ResultSet();
             $resultSetPrototype->setArrayObjectPrototype(new Album());
+            
             $paginatorAdapter = new DbSelect(
                     $select, $this->tableGateway->getAdapter(), $resultSetPrototype
             );

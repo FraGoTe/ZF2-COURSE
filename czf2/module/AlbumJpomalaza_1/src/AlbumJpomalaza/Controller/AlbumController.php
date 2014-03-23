@@ -19,17 +19,9 @@
      
      public function indexAction()
      {
-//         return new ViewModel(array(
-//             'albums' => $this->getAlbumTable()->fetchAll(),
-//         ));
-         
-         $view = new ViewModel();
-         $pag = (int) $this->params()->fromQuery('page', 1);
-         $paginador = $this->getAlbumTable()->fetchAll(true);
-         $paginador->setItemCountPerPage(2);
-         $paginador->setCurrentPageNumber($pag);
-         $view->albums = $paginador;
-         return $view;
+         return new ViewModel(array(
+             'albums' => $this->getAlbumTable()->fetchAll(),
+         ));
      }
 
      public function addAction()
@@ -127,10 +119,6 @@
          );
      }
      
-     /**
-      * 
-      * @return \AlbumJpomalaza\Model\AlbumTable
-      */
      public function getAlbumTable()
      {
          if (!$this->albumTable) {

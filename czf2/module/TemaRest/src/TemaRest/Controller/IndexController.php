@@ -13,6 +13,11 @@ class IndexController extends AbstractRestfulController {
      */
     public function getList() {
         return new JsonModel(array(
+//            'method' => __NAMESPACE__,
+//            'method' => __METHOD__,
+//            'method' => __CLASS__,
+//            'method' => __LINE__,
+//            'method' => __FILE__,
             'method' => __FUNCTION__,
             'params' => func_get_args(),
         ));
